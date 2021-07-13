@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemovablegrid",
+  "version": "${version}",
+
+  "name": "Simple Movable Grid",
+  "description": "Adds simple movable grid on client",
+  "authors": [
+    "Iunius118"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Iunius118/SimpleMovableGrid",
+    "sources": "https://github.com/Iunius118/SimpleMovableGrid"
+  },
+
+  "license": "MIT License",
+  "icon": "assets/simplemovablegrid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ],
+    "client": [
+      "com.github.iunius118.simplemovablegrid.client.SimpleMovableGrid"
+    ]
+  },
+  "mixins": [
+    "simplemovablegrid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
