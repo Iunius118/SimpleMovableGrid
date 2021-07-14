@@ -1,4 +1,7 @@
 {
+  "key.categories.simplemovablegrid.main": "Simple Movable Grid",
+  "key.simplemovablegrid.enable": "Toggle Grid",
+  "key.simplemovablegrid.setPosition": "Set Position",
   "text.autoconfig.simplemovablegrid.title": "Simple Movable Grid",
   "text.autoconfig.simplemovablegrid.option.enabled": "Enabled",
   "text.autoconfig.simplemovablegrid.option.axisX": "X-Axis",

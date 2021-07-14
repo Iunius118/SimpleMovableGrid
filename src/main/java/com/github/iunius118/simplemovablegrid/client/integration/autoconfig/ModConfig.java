@@ -3,6 +3,7 @@ package com.github.iunius118.simplemovablegrid.client.integration.autoconfig;
 import com.github.iunius118.simplemovablegrid.client.SimpleMovableGrid;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
 
 @Config(name = SimpleMovableGrid.MOD_ID)
@@ -19,9 +20,22 @@ public class ModConfig implements ConfigData {
         return enabled;
     }
 
+    public boolean toggleEnabled() {
+        enabled = !enabled;
+        return enabled;
+    }
+
     public Vec3 getPos() {
         return new Vec3(x, y, z);
     }
+
+    public Vec3i setPos(int posX, int posY, int posZ) {
+        x = posX;
+        y = posY;
+        z = posZ;
+        return new Vec3i(x, y, z);
+    }
+
 
     public AxisDrawable getAxisXDrawable() {
         return axisX;
