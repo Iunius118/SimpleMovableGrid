@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Simple Movable Grid",
-  "description": "Adds simple movable grid on client",
+  "description": "Adds a simple movable grid on client",
   "authors": [
     "Iunius118"
   ],
