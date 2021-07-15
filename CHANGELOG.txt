@@ -2,7 +2,10 @@
 [Simple Movable Grid](https://github.com/Iunius118/SimpleMovableGrid).
 
 ## [Unreleased]
+
+## [1.17-1.0.0]
 ### Added
 - Grid renderer.
 - Config with Cloth Config.
 - Config screen for Mod Menu.
+- Shortcut keys to change config.
