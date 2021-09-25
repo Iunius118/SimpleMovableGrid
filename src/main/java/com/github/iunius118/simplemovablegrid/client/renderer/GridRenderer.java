@@ -3,15 +3,19 @@ package com.github.iunius118.simplemovablegrid.client.renderer;
 import com.github.iunius118.simplemovablegrid.SimpleMovableGrid;
 import com.github.iunius118.simplemovablegrid.config.AxisDrawable;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.profiler.IProfiler;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import org.lwjgl.opengl.GL11;
 
 public class GridRenderer {
     private static final int GRID_MAX = 32;
@@ -22,57 +26,54 @@ public class GridRenderer {
 
         beginRenderProfile();
 
-        Vec3 gridPos = config.getPos();
+        Vector3d gridPos = config.getPos();
         // Get main camera for Forge version
-        var mainCamera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        Vec3 cameraPos = mainCamera.getPosition();
-        Vec3 originPos = gridPos.subtract(cameraPos);
+        GameRenderer gameRenderer = Minecraft.getInstance().gameRenderer;
+        ActiveRenderInfo mainCamera = gameRenderer.getMainCamera();
+        MatrixStack poseStack = event.getMatrixStack();
+        Vector3d cameraPos = mainCamera.getPosition();
+        Vector3d originPos = gridPos.subtract(cameraPos);
 
         // Transform for Forge version (before rendering)
-        var poseStack = event.getMatrixStack();
-        var modelViewStack = RenderSystem.getModelViewStack();
-        modelViewStack.pushPose();
-        modelViewStack.mulPoseMatrix(poseStack.last().pose());
-        RenderSystem.applyModelViewMatrix();
+        RenderSystem.pushMatrix();
+        RenderSystem.multMatrix(poseStack.last().pose());
 
         render(originPos);
 
         // Transform for Forge version (after rendering)
-        modelViewStack.popPose();
-        RenderSystem.applyModelViewMatrix();
+        RenderSystem.popMatrix();
 
         endRenderProfile();
     }
 
     private static void beginRenderProfile() {
-        var profiler = Minecraft.getInstance().getProfiler();
+        IProfiler profiler = Minecraft.getInstance().getProfiler();
         profiler.push(SimpleMovableGrid.MOD_ID + ":render_grid");
     }
 
     private static void endRenderProfile() {
-        var profiler = Minecraft.getInstance().getProfiler();
+        IProfiler profiler = Minecraft.getInstance().getProfiler();
         profiler.pop();
     }
 
-    private static void render(Vec3 pos) {
+    private static void render(Vector3d pos) {
         RenderSystem.enableDepthTest();
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.disableTexture();
         RenderSystem.disableBlend();
         RenderSystem.lineWidth(1.0F);
 
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder buffer = tesselator.getBuilder();
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuilder();
 
-        buffer.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
+        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
         renderGrid(buffer, pos);
-        tesselator.end();
+        tessellator.end();
 
         RenderSystem.enableBlend();
         RenderSystem.enableTexture();
     }
 
-    private static void renderGrid(BufferBuilder buffer, Vec3 pos) {
+    private static void renderGrid(BufferBuilder buffer, Vector3d pos) {
         final double x = pos.x;
         final double y = pos.y;
         final double z = pos.z;

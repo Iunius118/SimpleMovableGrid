@@ -9,15 +9,13 @@ public enum AxisDrawable {
 
     public boolean canDraw(AxisDrawable sign) {
         switch (sign) {
-            case POSITIVE, NEGATIVE -> {
+            case NEGATIVE:
+            case POSITIVE:
                 return this == sign || this == BOTH;
-            }
-            case BOTH -> {
+            case BOTH:
                 return this != NONE;
-            }
-            default -> {
+            default:
                 return false;
-            }
         }
     }
 }

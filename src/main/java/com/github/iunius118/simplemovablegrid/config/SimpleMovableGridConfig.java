@@ -1,12 +1,11 @@
 package com.github.iunius118.simplemovablegrid.config;
 
-import net.minecraft.core.Vec3i;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.fml.config.IConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class SimpleMovableGridConfig {
@@ -58,15 +57,15 @@ public class SimpleMovableGridConfig {
             return enabled.get();
         }
 
-        public Vec3 getPos() {
-            return new Vec3(x.get(), y.get(), z.get());
+        public Vector3d getPos() {
+            return new Vector3d(x.get(), y.get(), z.get());
         }
 
-        public Vec3i setPos(int posX, int posY, int posZ) {
+        public Vector3i setPos(int posX, int posY, int posZ) {
             x.set(posX);
             y.set(posY);
             z.set(posZ);
-            return new Vec3i(x.get(), y.get(), z.get());
+            return new Vector3i(x.get(), y.get(), z.get());
         }
 
 
@@ -83,7 +82,7 @@ public class SimpleMovableGridConfig {
         }
     }
 
-    public static IConfigSpec<?> clientSpec;
+    public static ForgeConfigSpec clientSpec;
     public static final Client CLIENT;
 
     static {
