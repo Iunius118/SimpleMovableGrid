@@ -1,4 +1,6 @@
-# Simple Movable Grid
+# Simple Movable Grid [![Simple Movable Grid - CurseForge](http://cf.way2muchnoise.eu/title/522986.svg)](https://www.curseforge.com/minecraft/mc-mods/simple-movable-grid)
+
+<img src="docs/media/simplemovablegrid_logo_large.png" title="Logo" width="128" height="128">
 
 Adds a simple movable grid on client
 
