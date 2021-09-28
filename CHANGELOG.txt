@@ -3,9 +3,7 @@
 
 ## [Unreleased]
 
-## [1.17-1.0.0]
+## [1.17.1-1.0.0-Forge]
 ### Added
 - Grid renderer.
-- Config with Cloth Config.
-- Config screen for Mod Menu.
 - Shortcut keys to change config.
