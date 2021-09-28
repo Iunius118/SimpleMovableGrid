@@ -3,7 +3,7 @@
 
 ## [Unreleased]
 
-## [1.17-1.0.0]
+## [1.17-1.0.0-Fabric]
 ### Added
 - Grid renderer.
 - Config with Cloth Config.
