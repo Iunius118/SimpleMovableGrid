@@ -9,7 +9,7 @@
     "Iunius118"
   ],
   "contact": {
-    "homepage": "https://github.com/Iunius118/SimpleMovableGrid",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/simple-movable-grid",
     "issues": "https://github.com/Iunius118/SimpleMovableGrid/issues",
     "sources": "https://github.com/Iunius118/SimpleMovableGrid"
   },
@@ -34,8 +34,8 @@
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "minecraft": "1.18.x",
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "*"

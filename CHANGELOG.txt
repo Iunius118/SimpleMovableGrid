@@ -1,7 +1,12 @@
 # Change Log
-[Simple Movable Grid](https://github.com/Iunius118/SimpleMovableGrid).
+[Simple Movable Grid](https://www.curseforge.com/minecraft/mc-mods/simple-movable-grid).
+[Source](https://github.com/Iunius118/SimpleMovableGrid).
 
 ## [Unreleased]
+
+## [1.18-1.0.0-Fabric]
+### Changed
+- Port to 1.18.
 
 ## [1.17-1.0.0-Fabric]
 ### Added
