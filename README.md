@@ -26,13 +26,13 @@ Adds a simple movable grid on client
 3. In a world, press `Set Position` key to set the base position of the grid lines to the coordinates at your feet
 
 - `Toggle Grid` key switches the visibility of the grid lines
-- You can open the config screen of this mod from in-game mod list (Fabric version requires Cloth Config and Mod Menu)
+- In the Fabric versions, you can open the config screen of this mod from in-game mod list
 
 [<img src="docs/media/screenshot_2_v1.0.0.png" title="Using hotkeys" width="427" height="240">](docs/media/screenshot_2_v1.0.0.png)
 
 ## License
 
-- MIT license
+- MIT License
 
 ----
 Copyright © 2021 Iunius118
