@@ -11,12 +11,12 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 
 public class GridRenderer {
     private static final int GRID_MAX = 32;
 
-    public static void render(RenderWorldLastEvent event) {
+    public static void render(RenderLevelLastEvent event) {
         SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
         if (!config.enabled()) return;
 
@@ -29,7 +29,7 @@ public class GridRenderer {
         Vec3 originPos = gridPos.subtract(cameraPos);
 
         // Transform for Forge version (before rendering)
-        var poseStack = event.getMatrixStack();
+        var poseStack = event.getPoseStack();
         var modelViewStack = RenderSystem.getModelViewStack();
         modelViewStack.pushPose();
         modelViewStack.mulPoseMatrix(poseStack.last().pose());
