@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.18-1.1.0-Forge]
+### Added
+- Translation keys for messages.
+
 ## [1.18-1.0.0-Forge]
 ### Changed
 - Port to 1.18.
