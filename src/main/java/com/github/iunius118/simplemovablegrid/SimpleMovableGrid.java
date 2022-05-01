@@ -4,12 +4,16 @@ import com.github.iunius118.simplemovablegrid.client.renderer.GridRenderer;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -17,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.client.ClientRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -67,8 +70,10 @@ public class SimpleMovableGrid{
                 boolean enabled = config.toggleEnabled();
 
                 LocalPlayer player = client.player;
-                if (player != null)
-                    player.sendMessage(createChatMessage("Grid: " + (enabled ? "shown" : "hidden")), player.getUUID());
+                if (player != null) {
+                    MutableComponent message = new TranslatableComponent(enabled ? "simplemovablegrid.grid.shown" : "simplemovablegrid.grid.hidden");
+                    player.sendMessage(createChatMessage(message), Util.NIL_UUID);
+                }
             }
 
             while (keySetPosition.consumeClick()) {
@@ -77,7 +82,9 @@ public class SimpleMovableGrid{
 
                 SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
                 Vec3i pos = config.setPos(player.getBlockX(), player.getBlockY(), player.getBlockZ());
-                player.sendMessage(createChatMessage("Position is set to (" + pos.toShortString() + ")"), null);
+
+                MutableComponent message = new TranslatableComponent("simplemovablegrid.setPosition.success", pos.toShortString());
+                player.sendMessage(createChatMessage(message), Util.NIL_UUID);
             }
         };
 
@@ -88,7 +95,7 @@ public class SimpleMovableGrid{
         return new KeyMapping("key." + MOD_ID + "." + name, key, "key.categories." + MOD_ID + "." + category);
     }
 
-    private Component createChatMessage(String message) {
-        return new TextComponent("").append(new TextComponent("[SimpleMovableGrid] ").withStyle(ChatFormatting.YELLOW)).append(new TextComponent(message).withStyle(ChatFormatting.RESET));
+    private Component createChatMessage(MutableComponent message) {
+        return new TextComponent("").append(new TextComponent("[SimpleMovableGrid] ").withStyle(ChatFormatting.YELLOW)).append(message.withStyle(ChatFormatting.RESET));
     }
 }
