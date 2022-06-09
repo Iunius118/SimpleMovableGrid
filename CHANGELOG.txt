@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [1.19-1.1.1-Fabric]
+### Changed
+- Update to Minecraft 1.19.
+
+### Fixed
+- Translation of messages.
+
 ## [22w17a-1.1.0-Fabric]
 ### Added
 - Translation keys for messages.
