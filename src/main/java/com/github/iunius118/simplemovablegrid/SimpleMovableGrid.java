@@ -4,15 +4,12 @@ import com.github.iunius118.simplemovablegrid.client.renderer.GridRenderer;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -71,8 +68,8 @@ public class SimpleMovableGrid{
 
                 LocalPlayer player = client.player;
                 if (player != null) {
-                    MutableComponent message = new TranslatableComponent(enabled ? "simplemovablegrid.grid.shown" : "simplemovablegrid.grid.hidden");
-                    player.sendMessage(createChatMessage(message), Util.NIL_UUID);
+                    MutableComponent message = Component.translatable(enabled ? "simplemovablegrid.grid.shown" : "simplemovablegrid.grid.hidden");
+                    player.displayClientMessage(createChatMessage(message), false);
                 }
             }
 
@@ -83,8 +80,8 @@ public class SimpleMovableGrid{
                 SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
                 Vec3i pos = config.setPos(player.getBlockX(), player.getBlockY(), player.getBlockZ());
 
-                MutableComponent message = new TranslatableComponent("simplemovablegrid.setPosition.success", pos.toShortString());
-                player.sendMessage(createChatMessage(message), Util.NIL_UUID);
+                MutableComponent message = Component.translatable("simplemovablegrid.setPosition.success", pos.toShortString());
+                client.player.displayClientMessage(createChatMessage(message), false);
             }
         };
 
@@ -96,6 +93,6 @@ public class SimpleMovableGrid{
     }
 
     private Component createChatMessage(MutableComponent message) {
-        return new TextComponent("").append(new TextComponent("[SimpleMovableGrid] ").withStyle(ChatFormatting.YELLOW)).append(message.withStyle(ChatFormatting.RESET));
+        return Component.literal("").append(Component.literal("[Simple Movable Grid] ").withStyle(ChatFormatting.YELLOW)).append(message.withStyle(ChatFormatting.RESET));
     }
 }
