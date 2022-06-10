@@ -4,7 +4,7 @@
   "key.simplemovablegrid.setPosition": "Set Position",
   "simplemovablegrid.grid.hidden": "Grid: hidden",
   "simplemovablegrid.grid.shown": "Grid: shown",
-  "simplemovablegrid.setPosition.success": "Position is set to (%s)",
+  "simplemovablegrid.setPosition.success": "Moved grid to %s",
   "text.autoconfig.simplemovablegrid.title": "Simple Movable Grid",
   "text.autoconfig.simplemovablegrid.option.enabled": "Enabled",
   "text.autoconfig.simplemovablegrid.option.axisX": "X-Axis",
