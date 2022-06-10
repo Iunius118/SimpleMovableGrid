@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [1.19-1.1.1-Forge]
+### Changed
+- Update to Minecraft 1.19.
+
+### Fixed
+- Translation of messages.
+
 ## [1.18-1.1.0-Forge]
 ### Added
 - Translation keys for messages.

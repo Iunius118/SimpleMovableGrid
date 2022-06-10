@@ -28,7 +28,7 @@ Adds a simple movable grid on client
 - `Toggle Grid` key switches the visibility of the grid lines
 - In the Fabric versions, you can open the config screen of this mod from in-game mod list
 
-[<img src="docs/media/screenshot_2_v1.0.0.png" title="Using hotkeys" width="427" height="240">](docs/media/screenshot_2_v1.0.0.png)
+[<img src="docs/media/screenshot_2_v1.1.1.png" title="Using hotkeys" width="427" height="240">](docs/media/screenshot_2_v1.1.1.png)
 
 ## License
 
