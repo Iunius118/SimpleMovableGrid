@@ -10,13 +10,13 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,20 +29,13 @@ public class SimpleMovableGrid{
     public static final Logger LOGGER = LogManager.getLogger();
 
     public SimpleMovableGrid() {
-        final var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         final var forgeEventBus = MinecraftForge.EVENT_BUS;
-
-        // Register lifecycle event listeners
-        modEventBus.addListener(this::initClient);
 
         // Register config
         registerConfig();
 
         // Register event listeners
         forgeEventBus.addListener(GridRenderer::render);
-    }
-
-    private void initClient(final FMLClientSetupEvent event) {
         bindKeys();
     }
 
@@ -54,11 +47,19 @@ public class SimpleMovableGrid{
         KeyMapping keyEnable = createKeyBinding("enable", InputConstants.UNKNOWN.getValue(), "main");
         KeyMapping keySetPosition = createKeyBinding("setPosition", InputConstants.UNKNOWN.getValue(), "main");
 
-        ClientRegistry.registerKeyBinding(keyEnable);
-        ClientRegistry.registerKeyBinding(keySetPosition);
+        // Register key bind event listener
+        Consumer<RegisterKeyMappingsEvent> registerKeyMappingsListener = event -> {
+            event.register(keyEnable);
+            event.register(keySetPosition);
+        };
 
-        Consumer<TickEvent.ClientTickEvent> listener = event -> {
-            if (event.phase != TickEvent.Phase.END) return;
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(registerKeyMappingsListener);
+
+        // Register key click event listener
+        Consumer<TickEvent.ClientTickEvent> clientTickEventListener = event -> {
+            if (event.phase != TickEvent.Phase.END)
+                return;
 
             Minecraft client = Minecraft.getInstance();
 
@@ -85,7 +86,7 @@ public class SimpleMovableGrid{
             }
         };
 
-        MinecraftForge.EVENT_BUS.addListener(listener);
+        MinecraftForge.EVENT_BUS.addListener(clientTickEventListener);
     }
 
     private KeyMapping createKeyBinding(String name, int key, String category) {
