@@ -11,14 +11,18 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 
 public class GridRenderer {
     private static final int GRID_MAX = 32;
 
-    public static void render(RenderLevelLastEvent event) {
+    public static void render(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)
+            return;
+
         SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
-        if (!config.enabled()) return;
+        if (!config.enabled())
+            return;
 
         beginRenderProfile();
 
