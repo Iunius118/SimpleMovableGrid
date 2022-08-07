@@ -35,7 +35,6 @@ public class SimpleMovableGrid{
         registerConfig();
 
         // Register event listeners
-        forgeEventBus.addListener(GridRenderer::render);
         bindKeys();
     }
 

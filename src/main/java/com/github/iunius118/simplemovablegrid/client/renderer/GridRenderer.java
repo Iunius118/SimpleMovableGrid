@@ -11,39 +11,17 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
 
 public class GridRenderer {
     private static final int GRID_MAX = 32;
 
-    public static void render(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS)
-            return;
-
-        SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
-        if (!config.enabled())
-            return;
-
+    public static void render(Vec3 gridPos) {
         beginRenderProfile();
 
-        Vec3 gridPos = config.getPos();
-        // Get main camera for Forge version
         var mainCamera = Minecraft.getInstance().gameRenderer.getMainCamera();
         Vec3 cameraPos = mainCamera.getPosition();
         Vec3 originPos = gridPos.subtract(cameraPos);
-
-        // Transform for Forge version (before rendering)
-        var poseStack = event.getPoseStack();
-        var modelViewStack = RenderSystem.getModelViewStack();
-        modelViewStack.pushPose();
-        modelViewStack.mulPoseMatrix(poseStack.last().pose());
-        RenderSystem.applyModelViewMatrix();
-
-        render(originPos);
-
-        // Transform for Forge version (after rendering)
-        modelViewStack.popPose();
-        RenderSystem.applyModelViewMatrix();
+        renderGrid(originPos);
 
         endRenderProfile();
     }
@@ -58,15 +36,17 @@ public class GridRenderer {
         profiler.pop();
     }
 
-    private static void render(Vec3 pos) {
+    private static void renderGrid(Vec3 pos) {
         RenderSystem.enableDepthTest();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        RenderSystem.disableTexture();
-        RenderSystem.disableBlend();
-        RenderSystem.lineWidth(1.0F);
 
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
+
+        RenderSystem.disableCull();
+        RenderSystem.disableTexture();
+        RenderSystem.disableBlend();
+        RenderSystem.lineWidth(1.0F);
 
         buffer.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
         renderGrid(buffer, pos);
@@ -74,6 +54,7 @@ public class GridRenderer {
 
         RenderSystem.enableBlend();
         RenderSystem.enableTexture();
+        RenderSystem.enableCull();
     }
 
     private static void renderGrid(BufferBuilder buffer, Vec3 pos) {
