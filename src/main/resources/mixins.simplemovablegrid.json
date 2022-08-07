@@ -1,0 +1,9 @@
+{
+  "package": "com.github.iunius118.simplemovablegrid.mixin",
+  "mixins": [
+  ],
+  "refmap": "mixins.simplemovablegrid.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17"
+}

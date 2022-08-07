@@ -1,8 +1,18 @@
+buildscript {
+    dependencies {
+        // MixinGradle:
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
 plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.+'
 }
+
+// MixinGradle:
+apply plugin: 'org.spongepowered.mixin'
 
 version = minecraft_version + '-' + mod_version
 group = maven_group
@@ -86,6 +96,15 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+mixin {
+    // MixinGradle Settings
+    add sourceSets.main, 'mixins.simplemovablegrid.refmap.json'
+    config 'mixins.simplemovablegrid.json'
+
+    debug.verbose = true
+    debug.export = true
+}
+
 repositories {
     // flatDir {
     //     dir 'libs'
@@ -94,6 +113,9 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
+
+    // Apply Mixin AP
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
