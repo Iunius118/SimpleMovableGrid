@@ -1,6 +1,6 @@
 package com.github.iunius118.simplemovablegrid;
 
-import com.github.iunius118.simplemovablegrid.client.renderer.GridRenderer;
+import com.github.iunius118.simplemovablegrid.config.LabelDefinition;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
@@ -17,6 +17,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,8 @@ import java.util.function.Consumer;
 public class SimpleMovableGrid{
     public static final String MOD_ID = "simplemovablegrid";
     public static final Logger LOGGER = LogManager.getLogger();
+
+    public static LabelDefinition labelDefinition = LabelDefinition.EMPTY;
 
     public SimpleMovableGrid() {
         final var forgeEventBus = MinecraftForge.EVENT_BUS;
@@ -40,6 +43,26 @@ public class SimpleMovableGrid{
 
     private void registerConfig() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimpleMovableGridConfig.clientSpec, MOD_ID + ".toml");
+
+        // Register config event listeners
+        Consumer<ModConfigEvent> configEventListener = event -> {
+            SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
+            if (config.isLabelEnabled()) {
+                labelDefinition = config.getLabelDefinition();
+            }
+        };
+        Consumer<ModConfigEvent.Loading> loadConfigEventListener = event -> {
+            LOGGER.debug("ModConfigEvent.Loading: {}", event.getConfig().getFileName());
+            configEventListener.accept(event);
+        };
+        Consumer<ModConfigEvent.Reloading> reloadConfigEventListener = event -> {
+            LOGGER.debug("ModConfigEvent.Reloading: {}", event.getConfig().getFileName());
+            configEventListener.accept(event);
+        };
+
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(loadConfigEventListener);
+        modEventBus.addListener(reloadConfigEventListener);
     }
 
     private void bindKeys() {

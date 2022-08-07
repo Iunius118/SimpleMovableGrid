@@ -18,6 +18,8 @@ public class SimpleMovableGridConfig {
         public final IntValue x;
         public final IntValue y;
         public final IntValue z;
+        public final BooleanValue isLabelEnabled;
+        public final ForgeConfigSpec.ConfigValue<String> definitionInJson;
 
         Client(ForgeConfigSpec.Builder builder) {
             enabled = builder
@@ -47,6 +49,19 @@ public class SimpleMovableGridConfig {
             z = builder
                     .comment("Z-coordinate value of base position of grid lines")
                     .defineInRange("z", 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+            builder .comment("Label settings")
+                    .push("label");
+
+            isLabelEnabled = builder
+                    .comment("Whether to show labels")
+                    .define("isLabelEnabled", false);
+
+            definitionInJson = builder
+                    .comment("JSON string defining labels")
+                    .define("definitionInJson", "{\"labels\":[[\"(0,0,0)\"],[\"(1,0,0)\"],1,[\"(3,0,0)\",\"(3,1,0)\"],2,[1,\"(6,1,0)\",2,\"(6,4,0)\",\"(6,5,0)\"],25,[\"(0,0,1)\"],31,[\"(0,0,2)\"],63,[\"(0,0,4)\"],894,[31,\"(31,31,31)\"]]}");
+
+            builder.pop();
         }
 
         public boolean enabled() {
@@ -69,7 +84,6 @@ public class SimpleMovableGridConfig {
             return new Vec3i(x.get(), y.get(), z.get());
         }
 
-
         public AxisDrawable getAxisXDrawable() {
             return axisX.get();
         }
@@ -80,6 +94,15 @@ public class SimpleMovableGridConfig {
 
         public AxisDrawable getAxisZDrawable() {
             return axisZ.get();
+        }
+
+        public boolean isLabelEnabled() {
+            return isLabelEnabled.get();
+        }
+
+        public LabelDefinition getLabelDefinition() {
+            String jsonString = definitionInJson.get();
+            return new LabelDefinition(jsonString);
         }
     }
 
