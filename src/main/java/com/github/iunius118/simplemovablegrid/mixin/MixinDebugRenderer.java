@@ -18,6 +18,6 @@ public class MixinDebugRenderer {
         if (!config.enabled())
             return;
 
-        GridRenderer.render(config.getPos());
+        GridRenderer.render(config.getPos(), config.isLabelEnabled());
     }
 }

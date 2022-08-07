@@ -2,6 +2,7 @@ package com.github.iunius118.simplemovablegrid.client.renderer;
 
 import com.github.iunius118.simplemovablegrid.SimpleMovableGrid;
 import com.github.iunius118.simplemovablegrid.config.AxisDrawable;
+import com.github.iunius118.simplemovablegrid.config.LabelDefinition;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -10,18 +11,25 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.world.phys.Vec3;
 
-public class GridRenderer {
-    private static final int GRID_MAX = 32;
+import java.util.List;
 
-    public static void render(Vec3 gridPos) {
+public class GridRenderer {
+    public static final int GRID_MAX = 32;
+
+    public static void render(Vec3 gridPos, boolean isLabelEnabled) {
         beginRenderProfile();
 
-        var mainCamera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        var minecraft = Minecraft.getInstance();
+        var mainCamera = minecraft.gameRenderer.getMainCamera();
         Vec3 cameraPos = mainCamera.getPosition();
         Vec3 originPos = gridPos.subtract(cameraPos);
         renderGrid(originPos);
+
+        if (isLabelEnabled)
+            renderLabels(gridPos);
 
         endRenderProfile();
     }
@@ -266,6 +274,16 @@ public class GridRenderer {
             buffer.vertex(x, y + GRID_MAX, z + i).color(1F, 1F, 0F, 1F).endVertex();
             buffer.vertex(x, y + i, z).color(1F, 1F, 0F, 1F).endVertex();
             buffer.vertex(x, y + i, z + GRID_MAX).color(1F, 1F, 0F, 1F).endVertex();
+        }
+    }
+
+    private static void renderLabels(Vec3 gridPos) {
+        LabelDefinition labelDefinition = SimpleMovableGrid.labelDefinition;
+        List<LabelDefinition.Label> labels = labelDefinition.getLabels();
+
+        for (LabelDefinition.Label label : labels) {
+            Vec3 pos = Vec3.atCenterOf(label.pos()).add(gridPos);
+            DebugRenderer.renderFloatingText(label.text(), pos.x, pos.y, pos.z, -1);
         }
     }
 }
