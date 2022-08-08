@@ -49,6 +49,8 @@ public class SimpleMovableGrid{
             SimpleMovableGridConfig.Client config = SimpleMovableGridConfig.CLIENT;
             if (config.isLabelEnabled()) {
                 labelDefinition = config.getLabelDefinition();
+            } else {
+                labelDefinition = LabelDefinition.EMPTY;
             }
         };
         Consumer<ModConfigEvent.Loading> loadConfigEventListener = event -> {

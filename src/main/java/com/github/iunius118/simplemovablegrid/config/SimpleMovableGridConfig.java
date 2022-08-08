@@ -20,6 +20,9 @@ public class SimpleMovableGridConfig {
         public final IntValue z;
         public final BooleanValue isLabelEnabled;
         public final ForgeConfigSpec.ConfigValue<String> definitionInJson;
+        public final IntValue layerMaskX;
+        public final IntValue layerMaskY;
+        public final IntValue layerMaskZ;
 
         Client(ForgeConfigSpec.Builder builder) {
             enabled = builder
@@ -60,6 +63,19 @@ public class SimpleMovableGridConfig {
             definitionInJson = builder
                     .comment("JSON string defining labels")
                     .define("definitionInJson", "{\"labels\":[[\"(0,0,0)\"],[\"(1,0,0)\"],1,[\"(3,0,0)\",\"(3,1,0)\"],2,[1,\"(6,1,0)\",2,\"(6,4,0)\",\"(6,5,0)\"],25,[\"(0,0,1)\"],31,[\"(0,0,2)\"],63,[\"(0,0,4)\"],894,[31,\"(31,31,31)\"]]}");
+
+            layerMaskX = builder
+                    .comment("Mask of X-layers")
+                    .defineInRange("layerMaskX", -1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+            layerMaskY = builder
+                    .comment("Mask of Y-layers")
+                    .defineInRange("layerMaskY", -1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+            layerMaskZ = builder
+                    .comment("Mask of Z-layers")
+                    .defineInRange("layerMaskZ", -1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
 
             builder.pop();
         }
@@ -102,7 +118,11 @@ public class SimpleMovableGridConfig {
 
         public LabelDefinition getLabelDefinition() {
             String jsonString = definitionInJson.get();
-            return new LabelDefinition(jsonString);
+            return new LabelDefinition(jsonString, getLayerMask());
+        }
+
+        public Vec3i getLayerMask() {
+            return new Vec3i(layerMaskX.get(), layerMaskY.get(), layerMaskZ.get());
         }
     }
 
