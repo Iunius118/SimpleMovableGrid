@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.19-1.2.1-Forge]
+### Fixed
+- logging of exceptions caused by invalid config.
+
 ## [1.19-1.2.0-Forge]
 ### Added
 - Label renderer.
