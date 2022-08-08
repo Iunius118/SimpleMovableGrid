@@ -2,7 +2,10 @@ package com.github.iunius118.simplemovablegrid.config;
 
 import com.github.iunius118.simplemovablegrid.SimpleMovableGrid;
 import com.github.iunius118.simplemovablegrid.client.renderer.GridRenderer;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.GsonHelper;
@@ -85,7 +88,8 @@ public class LabelDefinition {
                     }
                 }
             }
-        } catch (JsonSyntaxException e) {
+        } catch (Exception e) {
+            SimpleMovableGrid.LOGGER.error("Invalid label.definitionInJson");
             SimpleMovableGrid.LOGGER.error(e.toString());
         }
 
