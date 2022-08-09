@@ -8,6 +8,7 @@
 - `label` section to config.
 
 ### Changed
+- Requires Fabric Loader 0.14.9+, Fabric API 0.58.0+, Cloth Config 8.0.75+, and Mod Menu 4.0.4+.
 - Timing of rendering grid.
 
 ## [1.19-1.1.1-Fabric]
