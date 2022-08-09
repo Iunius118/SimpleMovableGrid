@@ -3,6 +3,10 @@
 [Source](https://github.com/Iunius118/SimpleMovableGrid).
 
 ## [Unreleased]
+### Added
+- Label renderer.
+- `label` section to config.
+
 ### Changed
 - Timing of rendering grid.
 
