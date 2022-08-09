@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/SimpleMovableGrid).
 
 ## [Unreleased]
+
+## [1.19-1.2.0-Fabric]
 ### Added
 - Label renderer.
 - `label` section to config.
