@@ -29,6 +29,7 @@
     ]
   },
   "mixins": [
+    "mixins.simplemovablegrid.json"
   ],
 
   "depends": {

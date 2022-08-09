@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/SimpleMovableGrid).
 
 ## [Unreleased]
+### Changed
+- Timing of rendering grid.
 
 ## [1.19-1.1.1-Fabric]
 ### Changed

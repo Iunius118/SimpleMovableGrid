@@ -7,36 +7,39 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.phys.Vec3;
 
 public class GridRenderer {
     private static final int GRID_MAX = 32;
 
-    public static void render(WorldRenderContext context) {
-        ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-        if (!config.enabled()) return;
-
-        Vec3 gridPos = config.getPos();
-        Vec3 cameraPos = context.camera().getPosition();
+    public static void render(Vec3 gridPos) {
+        var mainCamera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Vec3 cameraPos = mainCamera.getPosition();
         Vec3 originPos = gridPos.subtract(cameraPos);
+        renderGrid(originPos);
+    }
 
+    private static void renderGrid(Vec3 pos) {
         RenderSystem.enableDepthTest();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        RenderSystem.disableTexture();
-        RenderSystem.disableBlend();
-        RenderSystem.lineWidth(1.0F);
 
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
 
+        RenderSystem.disableCull();
+        RenderSystem.disableTexture();
+        RenderSystem.disableBlend();
+        RenderSystem.lineWidth(1.0F);
+
         buffer.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
-        renderGrid(buffer, originPos);
+        renderGrid(buffer, pos);
         tesselator.end();
 
         RenderSystem.enableBlend();
         RenderSystem.enableTexture();
+        RenderSystem.enableCull();
     }
 
     private static void renderGrid(BufferBuilder buffer, Vec3 pos) {

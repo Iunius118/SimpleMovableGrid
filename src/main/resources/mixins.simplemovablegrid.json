@@ -1,0 +1,10 @@
+{
+  "package": "com.github.iunius118.simplemovablegrid.mixin",
+  "client": [
+    "MixinDebugRenderer"
+  ],
+  "refmap": "mixins.simplemovablegrid.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17"
+}

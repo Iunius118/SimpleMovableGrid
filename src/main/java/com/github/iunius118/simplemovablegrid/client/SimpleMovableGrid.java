@@ -1,14 +1,12 @@
 package com.github.iunius118.simplemovablegrid.client;
 
 import com.github.iunius118.simplemovablegrid.client.integration.autoconfig.ModConfig;
-import com.github.iunius118.simplemovablegrid.client.renderer.GridRenderer;
 import com.mojang.blaze3d.platform.InputConstants;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -40,13 +38,8 @@ public class SimpleMovableGrid implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        registerEventListeners();
         registerConfig();
         bindKeys();
-    }
-
-    private void registerEventListeners() {
-        WorldRenderEvents.BEFORE_DEBUG_RENDER.register(GridRenderer::render);
     }
 
     private void registerConfig() {
