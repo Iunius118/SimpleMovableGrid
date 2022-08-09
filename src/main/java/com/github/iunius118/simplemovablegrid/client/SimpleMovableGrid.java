@@ -1,8 +1,11 @@
 package com.github.iunius118.simplemovablegrid.client;
 
+import com.github.iunius118.simplemovablegrid.client.integration.autoconfig.LabelDefinition;
 import com.github.iunius118.simplemovablegrid.client.integration.autoconfig.ModConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
+import me.shedaniel.autoconfig.event.ConfigSerializeEvent;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,6 +21,7 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
@@ -29,12 +33,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.function.Consumer;
 
 public class SimpleMovableGrid implements ClientModInitializer {
     public static final String MOD_ID = "simplemovablegrid";
     private static final String MOD_NAME = "Simple Movable Grid";
-
     public static final Logger LOGGER = LogManager.getFormatterLogger(MOD_NAME);
+
+    public static LabelDefinition labelDefinition = LabelDefinition.EMPTY;
 
     @Override
     public void onInitializeClient() {
@@ -43,7 +49,30 @@ public class SimpleMovableGrid implements ClientModInitializer {
     }
 
     private void registerConfig() {
-        AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
+        ConfigHolder<ModConfig> configHolder = AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
+
+        // Register config event listeners
+        Consumer<ModConfig> configEventListener = config -> {
+            if (config.isLabelEnabled()) {
+                labelDefinition = config.getLabelDefinition();
+            } else {
+                labelDefinition = LabelDefinition.EMPTY;
+            }
+        };
+        ConfigSerializeEvent.Load<ModConfig> onLoad = (holder, config) -> {
+            LOGGER.debug("ConfigSerializeEvent.Load: {}", holder.toString());
+            configEventListener.accept(config);
+            return InteractionResult.PASS;
+        };
+        ConfigSerializeEvent.Save<ModConfig> onSave = (holder, config) -> {
+            LOGGER.debug("ConfigSerializeEvent.Save: {}", holder.toString());
+            configEventListener.accept(config);
+            return InteractionResult.PASS;
+        };
+
+        configHolder.registerLoadListener(onLoad);
+        configHolder.registerSaveListener(onSave);
+        configHolder.load();
     }
 
     private void bindKeys() {
