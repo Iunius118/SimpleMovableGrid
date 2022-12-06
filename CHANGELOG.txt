@@ -4,13 +4,19 @@
 
 ## [Unreleased]
 
+## [1.19.3-rc2-1.3.0-beta.1-Fabric]
+### Changed
+- Update to Minecraft 1.19.3-rc2.
+- Require Fabric Loader 0.14.11+, Fabric API 0.68.1+, Cloth Config 9.0.93+, and Mod Menu 5.0.0+.
+- Layout of mod config screen.
+
 ## [1.19-1.2.0-Fabric]
 ### Added
 - Label renderer.
 - `label` section to config.
 
 ### Changed
-- Requires Fabric Loader 0.14.9+, Fabric API 0.58.0+, Cloth Config 8.0.75+, and Mod Menu 4.0.4+.
+- Require Fabric Loader 0.14.9+, Fabric API 0.58.0+, Cloth Config 8.0.75+, and Mod Menu 4.0.4+.
 - Timing of rendering grid.
 
 ## [1.19-1.1.1-Fabric]
