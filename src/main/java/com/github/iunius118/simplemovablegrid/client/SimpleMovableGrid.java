@@ -25,8 +25,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
 import java.nio.file.Files;
@@ -38,7 +38,7 @@ import java.util.function.Consumer;
 public class SimpleMovableGrid implements ClientModInitializer {
     public static final String MOD_ID = "simplemovablegrid";
     private static final String MOD_NAME = "Simple Movable Grid";
-    public static final Logger LOGGER = LogManager.getFormatterLogger(MOD_NAME);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static LabelDefinition labelDefinition = LabelDefinition.EMPTY;
 
