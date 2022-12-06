@@ -9,6 +9,8 @@ import net.minecraft.world.phys.Vec3;
 
 @Config(name = SimpleMovableGrid.MOD_ID)
 public class ModConfig implements ConfigData {
+    // Prefix text defined by text.autoconfig.simplemovablegrid.option.enabled.@PrefixText
+    @ConfigEntry.Gui.PrefixText
     boolean enabled = true;
     AxisDrawable axisX = AxisDrawable.POSITIVE;
     AxisDrawable axisY = AxisDrawable.POSITIVE;
@@ -16,7 +18,9 @@ public class ModConfig implements ConfigData {
     int x = 0;
     int y = 0;
     int z = 0;
-    @ConfigEntry.Gui.CollapsibleObject()
+    // Prefix text defined by text.autoconfig.simplemovablegrid.option.label.@PrefixText
+    @ConfigEntry.Gui.PrefixText
+    @ConfigEntry.Gui.TransitiveObject
     Label label = new Label();
 
     public boolean enabled() {
