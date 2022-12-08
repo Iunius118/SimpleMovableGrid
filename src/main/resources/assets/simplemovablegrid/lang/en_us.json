@@ -6,11 +6,19 @@
   "simplemovablegrid.grid.shown": "Grid: shown",
   "simplemovablegrid.setPosition.success": "Moved grid to %s",
   "text.autoconfig.simplemovablegrid.title": "Simple Movable Grid",
+  "text.autoconfig.simplemovablegrid.option.enabled.@PrefixText": "Grid",
   "text.autoconfig.simplemovablegrid.option.enabled": "Enabled",
   "text.autoconfig.simplemovablegrid.option.axisX": "X-Axis",
   "text.autoconfig.simplemovablegrid.option.axisY": "Y-Axis",
   "text.autoconfig.simplemovablegrid.option.axisZ": "Z-Axis",
   "text.autoconfig.simplemovablegrid.option.x": "X",
   "text.autoconfig.simplemovablegrid.option.y": "Y",
-  "text.autoconfig.simplemovablegrid.option.z": "Z"
+  "text.autoconfig.simplemovablegrid.option.z": "Z",
+  "text.autoconfig.simplemovablegrid.option.label.@PrefixText": "Label",
+  "text.autoconfig.simplemovablegrid.option.label": "Label",
+  "text.autoconfig.simplemovablegrid.option.label.isLabelEnabled": "Is Label Enabled",
+  "text.autoconfig.simplemovablegrid.option.label.definitionInJson": "Definition In Json",
+  "text.autoconfig.simplemovablegrid.option.label.layerMaskX": "X-Layer Mask",
+  "text.autoconfig.simplemovablegrid.option.label.layerMaskY": "Y-Layer Mask",
+  "text.autoconfig.simplemovablegrid.option.label.layerMaskZ": "Z-Layer Mask"
 }
