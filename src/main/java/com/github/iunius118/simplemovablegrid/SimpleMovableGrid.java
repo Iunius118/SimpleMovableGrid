@@ -3,6 +3,7 @@ package com.github.iunius118.simplemovablegrid;
 import com.github.iunius118.simplemovablegrid.config.LabelDefinition;
 import com.github.iunius118.simplemovablegrid.config.SimpleMovableGridConfig;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -19,15 +20,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.util.function.Consumer;
 
 @Mod(SimpleMovableGrid.MOD_ID)
 public class SimpleMovableGrid{
     public static final String MOD_ID = "simplemovablegrid";
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static LabelDefinition labelDefinition = LabelDefinition.EMPTY;
 
