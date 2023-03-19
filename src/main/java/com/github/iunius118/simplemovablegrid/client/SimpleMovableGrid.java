@@ -115,7 +115,8 @@ public class SimpleMovableGrid implements ClientModInitializer {
                 Level level = player.getLevel();
                 if (level == null) continue;
 
-                BlockPos pos = new BlockPos(config.getPos());
+                Vec3 pos3d = config.getPos();
+                BlockPos pos = new BlockPos((int) pos3d.x, (int) pos3d.y, (int) pos3d.z);
                 ResourceLocation structureName = new ResourceLocation(MOD_ID, getTimeStamp());
                 boolean result = saveStructure(level, pos, structureName);
 
