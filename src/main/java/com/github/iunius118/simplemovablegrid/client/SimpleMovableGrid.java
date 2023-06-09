@@ -112,10 +112,10 @@ public class SimpleMovableGrid implements ClientModInitializer {
                 // Save the structure only when the grid is enabled
                 LocalPlayer player = client.player;
                 if (player == null) continue;
-                Level level = player.getLevel();
+                Level level = player.level();
                 if (level == null) continue;
 
-                Vec3 pos3d = config.getPos();
+                net.minecraft.world.phys.Vec3 pos3d = config.getPos();
                 BlockPos pos = new BlockPos((int) pos3d.x, (int) pos3d.y, (int) pos3d.z);
                 ResourceLocation structureName = new ResourceLocation(MOD_ID, getTimeStamp());
                 boolean result = saveStructure(level, pos, structureName);
@@ -143,7 +143,7 @@ public class SimpleMovableGrid implements ClientModInitializer {
         try {
             Files.createDirectories(saveDirPath);
         } catch (Exception e) {
-            LOGGER.error((String)"Failed to create parent directory: {}", saveDirPath);
+            LOGGER.error("Failed to create parent directory: {}", saveDirPath);
             return false;
         }
 
