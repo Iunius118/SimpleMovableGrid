@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [1.20-1.5.0-Forge]
+### Changed
+- Update to Minecraft 1.20.
+- Require Forge 1.20-46.0.10+.
+
 ## [1.19.4-1.4.0-Forge]
 ### Changed
 - Update to Minecraft 1.19.4.
