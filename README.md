@@ -17,7 +17,6 @@ Adds a simple movable grid on client
 - Fabric Loader
 - Fabric API
 - Cloth Config
-- Mod Menu
 
 ## How to Get Started
 
@@ -26,7 +25,7 @@ Adds a simple movable grid on client
 3. In a world, press `Set Position` key to set the base position of the grid lines to the coordinates at your feet
 
 - `Toggle Grid` key switches the visibility of the grid lines
-- In the Fabric versions, you can open the config screen of this mod from in-game mod list
+- When Mod Menu is installed in Fabric version, you can open the config screen of this mod from in-game mod list
 
 [<img src="docs/media/screenshot_2_v1.1.1.png" title="Using hotkeys" width="427" height="240">](docs/media/screenshot_2_v1.1.1.png)
 
